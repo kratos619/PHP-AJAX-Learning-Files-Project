@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+
+<body>
+    <script>
+        // For GEt Request
+        // function init() {
+
+        //     var xhrObj = new XMLHttpRequest();
+        //     //Get Request
+        //     xhrObj.open("GET", "test.php", true);
+
+        //     xhrObj.onreadystatechange = function () {
+        //         if (xhrObj.readyState == 4 && xhrObj.status == 200)
+        //             document.getElementById('container').innerHTML = xhrObj.responseText;
+        //     }
+        //     xhrObj.send();
+        // }
+
+        function init() {
+
+            var xhrObj = new XMLHttpRequest();
+            //Post Request
+            xhrObj.open("POST", "test.php", true);
+            xhrObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhrObj.onreadystatechange = function () {
+                if (xhrObj.readyState == 4 && xhrObj.status == 200)
+                    document.getElementById('container').innerHTML = xhrObj.responseText;
+            }
+            xhrObj.send("username=gaurav&pas=pass");
+        }
+    </script>
+    <button onclick="init()">Test Ajax</button>
+    <div id="container">
+
+    </div>
+</body>
+
+</html>
