@@ -17,7 +17,16 @@ if(!empty($search)){
         die('query failed ' . mysqli_error($connection));
     }
 
-}
+    while($row = mysqli_fetch_assoc($search_query)){
+        $car = $row['car'];
+        ?>
+        <div class="collection">
+            <a href="#!" class="collection-item"><?php echo $car; ?></a>
+        </div>
+        <?php
 
+    }
+
+}
 
 ?>
