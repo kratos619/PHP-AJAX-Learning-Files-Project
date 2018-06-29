@@ -27,10 +27,10 @@ while($row = mysqli_fetch_assoc($result)){
 $('.title-link').on('click',function () {
     $('#action_container').show();
     var id = $(this).attr('rel');
-    console.log(id);
+    //console.log(id);
     $.post('process.php', {id:id} , function (data) { 
 
-        console.log(data);
+      //  console.log(data);
         $('#action_container').html(data);
      } )
 
