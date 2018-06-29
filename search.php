@@ -21,7 +21,7 @@ if(!empty($search)){
         echo "car not found";
     }else{
         while($row = mysqli_fetch_assoc($search_query)){
-        $car = $row['car'];
+            $car = $row['car'];
         ?>
         <div class="collection">
             <a href="#!" class="collection-item"><?php echo $car; ?></a>

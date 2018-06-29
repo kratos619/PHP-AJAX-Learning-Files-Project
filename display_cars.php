@@ -14,7 +14,7 @@ while($row = mysqli_fetch_assoc($result)){
     ?>
     <tr>
         <td><?php echo h($cars_id); ?></td>
-        <td><?php echo h($cars_name); ?></td>
+        <td><a rel="<?php echo $cars_id; ?>" class="title-link" href="javascript:void(0)" ><?php echo h($cars_name); ?></a></td>
     </tr>
 
     <?php
@@ -22,3 +22,17 @@ while($row = mysqli_fetch_assoc($result)){
 //redirect_to("display_cars.php");
 
 ?>
+<script>
+
+$('.title-link').on('click',function () {
+    $('#action_container').show();
+    var id = $(this).attr('rel');
+    console.log(id);
+    $.post('process.php', {id:id} , function (data) { 
+
+        console.log(data);
+        $('#action_container').html(data);
+     } )
+
+ });
+</script>
