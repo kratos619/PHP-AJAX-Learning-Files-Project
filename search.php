@@ -11,11 +11,16 @@ $search = mysqli_real_escape_string($connection ,$_POST['autocomplete_input']);
 if(!empty($search)){
     $query = "SELECT * FROM cars WHERE car LIKE '$search%'";
     $search_query = mysqli_query($connection,$query);
+    $conunt = mysqli_num_rows($search_query);
+    
     if(!$search_query){
         die('query failed ' . mysqli_error($connection));
     }
 
-    while($row = mysqli_fetch_assoc($search_query)){
+    if($conunt <= 0 ){
+        echo "car not found";
+    }else{
+        while($row = mysqli_fetch_assoc($search_query)){
         $car = $row['car'];
         ?>
         <div class="collection">
@@ -23,6 +28,7 @@ if(!empty($search)){
         </div>
         <?php
 
+    }
     }
 
 }
