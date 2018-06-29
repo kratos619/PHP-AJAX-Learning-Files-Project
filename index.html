@@ -19,7 +19,9 @@
 <body>
     <script>
         $(document).ready(function () {
-            // 
+            setInterval(function () {
+                display_cars_functions();
+            }, 1000);
             //Search Function
             $('#autocomplete_input').keyup(function () {
                 var search = $('#autocomplete_input').val();
@@ -50,6 +52,20 @@
                 });
 
             }); // end function to add datato db
+
+            // display cars tables
+            function display_cars_functions() {
+
+                $.ajax({
+                    url: 'display_cars.php',
+                    type: 'POST',
+                    success: function (show_cars) {
+                        if (!show_cars.error) {
+                            $('#show-car-table').html(show_cars)
+                        }
+                    }
+                });
+            }
 
         }); //document ready end
     </script>
@@ -83,30 +99,14 @@
             <div class="col m6">
                 <h3>All Cars Data</h3>
                 <table class="highlight">
-                    <thead id="show-table">
+                    <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
+                            <th>ID</th>
+                            <th>Car Names</th>
                         </tr>
                     </thead>
+                    <tbody id="show-car-table">
 
-                    <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
