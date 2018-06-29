@@ -17,15 +17,42 @@ while($row = mysqli_fetch_assoc($result)){
     ?>
     <!-- html -->
     <div class="input-field">
-        <input type="text" value="<?php echo $cars_name; ?>" name="car_name" class="validate" >
+        <input class="car_name" rel="<?php echo $cars_id; ?>" type="text" value="<?php echo $cars_name; ?>" name="car_name" class="validate car_name" >
         <label class="active" for="first_name2">Car Name</label>
-        <input type="button" value="Update"  name="car_name" class="btn wave" >
-        <input type="button" value="Delete"  name="car_name" class="btn red" >
+        <input type="button" value="Update"  name="car_name"  class="btn update" >
+        <input type="button" value="Delete"  name="car_name" class="btn delete" >
     </div>
-
-
     <?php
 }
 }
-//echo 'hello';
+// update data
+if(isset($_POST['update'])){
+echo "its work";
+
+}
+
 ?>
+<script>
+    $(document).ready(function(){
+        var id;
+        var title;
+        var update = "update";
+        var deletethis = "deletethis";
+
+        $('.car_name').on('input',function(){
+            id = $(this).attr('rel');
+            title = $(this).val();
+            //console.log(title);
+
+
+        });
+
+        $('.update').on('click',function() {
+            //console.log('a');
+            $.post('process.php',{id:id, title:title, update:update, deletethis:deletethis},function(data){ 
+             console.log(data);
+             })
+        });
+
+    });
+</script>
