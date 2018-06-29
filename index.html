@@ -44,9 +44,13 @@
                 evt.preventDefault();
                 var post_data = $(this).serialize();
                 var url = $(this).attr('action');
-                alert(post_data);
 
-            })
+                $.post(url, post_data, function (php_tabe_data) {
+                    $('#car_result').html(php_tabe_data);
+                });
+
+            });
+
         }); //document ready end
     </script>
     <div class="row">
@@ -64,7 +68,7 @@
         <div class="row">
             <div class="col m6">
                 <div class="row">
-                    <form id="add_car_form" action="add_cars.php">
+                    <form method="POST" id="add_car_form" action="add_cars.php">
                         <div class="input-field">
                             <input id="first_name2" type="text" name="car_name" class="validate">
                             <label class="active" for="first_name2">Car Name</label>
@@ -77,7 +81,7 @@
                 </div>
             </div>
             <div class="col m6">
-                <h1>hello</h1>
+                <h1 id="car_result">hello</h1>
             </div>
         </div>
     </div>
