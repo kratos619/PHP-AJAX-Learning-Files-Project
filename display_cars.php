@@ -31,7 +31,7 @@ $('.title-link').on('click',function () {
 
       //  console.log(data);
         $('#action_container').html(data);
-     } )
+     })
 
  });
 </script>

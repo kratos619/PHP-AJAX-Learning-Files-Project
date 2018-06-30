@@ -38,7 +38,7 @@ if(!$result){
 }
 
 }
-// update data
+// delete data
 if(isset($_POST['deletethis'])){
 $selected_id = escape_string($_POST['id']); 
 $selected_car_name = escape_string($_POST['title']); 
@@ -67,7 +67,7 @@ if(!$result){
         //update post function
         $('.update').on('click',function() {
             //console.log('a');
-            $.post('process.php',{id:id, title:title, update:update, deletethis:deletethis},function(data){ 
+            $.post('process.php',{id:id, title:title, update:update},function(data){ 
              
              });
              
@@ -78,10 +78,11 @@ if(!$result){
         $('.delete').on('click',function() {
             //console.log('a');
              id = $('.title-link').attr('rel');
-            $.post('process.php',{id:id, deletethis:deletethis},function(data){ 
-             //console.log(id);
+            console.log(id);
+             $.post('process.php',{id:id, deletethis:deletethis},function(data){ 
+            console.log(id);
              console.log('delete Successfully');
-             });
+            });
              
         });    
 
