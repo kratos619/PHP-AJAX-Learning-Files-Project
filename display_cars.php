@@ -23,7 +23,6 @@ while($row = mysqli_fetch_assoc($result)){
 
 ?>
 <script>
-
 $('.title-link').on('click',function () {
     $('#action_container').show();
     var id = $(this).attr('rel');

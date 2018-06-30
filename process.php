@@ -21,6 +21,7 @@ while($row = mysqli_fetch_assoc($result)){
         <label class="active" for="first_name2">Car Name</label>
         <input type="button"  value="Update"  name="car_name"  class="btn update" onclick="M.toast({html: 'Data SuccessFully Update'})" >
         <input type="button" value="Delete"  name="car_name" class="btn delete" onclick="M.toast({html: 'Data SuccessFully Delete'})" >
+        <button class="btn btn-close"><i class="large material-icons">close</i></button>
     </div>
     <?php
 }
@@ -82,6 +83,10 @@ if(!$result){
              console.log('delete Successfully');
              });
              
-        });        
+        });    
+
+        $('.btn-close').on('click',function () { 
+            $('#action_container').hide();
+         });
     });
 </script>
