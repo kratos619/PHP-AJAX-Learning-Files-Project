@@ -19,8 +19,8 @@ while($row = mysqli_fetch_assoc($result)){
     <div id="myForm" class="input-field">
         <input class="car_name" rel="<?php echo $cars_id; ?>" type="text" value="<?php echo $cars_name; ?>" name="car_name" class="validate car_name" >
         <label class="active" for="first_name2">Car Name</label>
-        <input type="button"  value="Update"  name="car_name"  class="btn update"onclick="M.toast({html: 'Data SuccessFully Update'})" >
-        <input type="button" value="Delete"  name="car_name" class="btn delete" >
+        <input type="button"  value="Update"  name="car_name"  class="btn update" onclick="M.toast({html: 'Data SuccessFully Update'})" >
+        <input type="button" value="Delete"  name="car_name" class="btn delete" onclick="M.toast({html: 'Data SuccessFully Delete'})" >
     </div>
     <?php
 }
@@ -37,7 +37,18 @@ if(!$result){
 }
 
 }
+// update data
+if(isset($_POST['deletethis'])){
+$selected_id = escape_string($_POST['id']); 
+$selected_car_name = escape_string($_POST['title']); 
 
+$query = "DELETE FROM cars where id = '$selected_id'";
+$result = mysqli_query($connection,$query);
+if(!$result){
+    die("something Went Wrong" . mysqli_error($connection) );
+}
+
+}
 ?>
 <script>
     $(document).ready(function(){
@@ -45,13 +56,14 @@ if(!$result){
         var title;
         var update = "update";
         var deletethis = "deletethis";
-
+// extract data for update
         $('.car_name').on('input',function(){
             id = $(this).attr('rel');
             title = $(this).val();
             //console.log(title)
 
         });
+        //update post function
         $('.update').on('click',function() {
             //console.log('a');
             $.post('process.php',{id:id, title:title, update:update, deletethis:deletethis},function(data){ 
@@ -59,6 +71,17 @@ if(!$result){
              });
              
         });
+
+        // delete function
         
+        $('.delete').on('click',function() {
+            //console.log('a');
+             id = $('.title-link').attr('rel');
+            $.post('process.php',{id:id, deletethis:deletethis},function(data){ 
+             //console.log(id);
+             console.log('delete Successfully');
+             });
+             
+        });        
     });
 </script>
