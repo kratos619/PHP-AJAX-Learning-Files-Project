@@ -16,10 +16,10 @@ while($row = mysqli_fetch_assoc($result)){
 
     ?>
     <!-- html -->
-    <div class="input-field">
+    <div id="myForm" class="input-field">
         <input class="car_name" rel="<?php echo $cars_id; ?>" type="text" value="<?php echo $cars_name; ?>" name="car_name" class="validate car_name" >
         <label class="active" for="first_name2">Car Name</label>
-        <input type="button" value="Update"  name="car_name"  class="btn update" >
+        <input type="button"  value="Update"  name="car_name"  class="btn update"onclick="M.toast({html: 'Data SuccessFully Update'})" >
         <input type="button" value="Delete"  name="car_name" class="btn delete" >
     </div>
     <?php
@@ -27,7 +27,14 @@ while($row = mysqli_fetch_assoc($result)){
 }
 // update data
 if(isset($_POST['update'])){
-echo "its work";
+$selected_id = escape_string($_POST['id']); 
+$selected_car_name = escape_string($_POST['title']); 
+
+$query = "UPDATE cars SET car = '$selected_car_name' where id = '$selected_id'";
+$result = mysqli_query($connection,$query);
+if(!$result){
+    die("something Went Wrong" . mysqli_error($connection) );
+}
 
 }
 
@@ -42,17 +49,16 @@ echo "its work";
         $('.car_name').on('input',function(){
             id = $(this).attr('rel');
             title = $(this).val();
-            //console.log(title);
-
+            //console.log(title)
 
         });
-
         $('.update').on('click',function() {
             //console.log('a');
             $.post('process.php',{id:id, title:title, update:update, deletethis:deletethis},function(data){ 
-             console.log(data);
-             })
+             
+             });
+             
         });
-
+        
     });
 </script>
