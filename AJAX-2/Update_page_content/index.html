@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Cat Select</title>
+</head>
+<body>
+    <div id="form">
+        <p>Which category are You intrested in</p>
+        <select name="" id="catergory-select">
+            <option disabled selected>plese Select</option>
+            <option value="1">Furniture</option>
+            <option value="2">Lighting</option>
+            <option value="3">Accessories</option>
+
+        </select>
+        <select id="subcategory-select">
+
+        </select>
+    </div>
+    <script>
+    function updateSubcategories(){
+        var cat_select = document.getElementById('category-select');
+        var subcat_select = document.getElementById('subcategory-select');
+
+        var cat_id = cat_select.options[cat_select.selectedIndex].value;
+        var url = 'content.php?category_id=' + cat_id;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET',url,true);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                subcat_select.innerHTML = xhr.responseText;
+
+            }
+        }
+        xhr.send();
+
+        var cat_select = document.getElementById('catergory-select');
+
+        cat_select.addEventListener('change',updateSubcategories);
+
+    }
+    </script>
+</body>
+</html>
