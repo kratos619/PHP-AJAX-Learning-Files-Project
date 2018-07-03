@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Test</title>
+</head>
+<body>
+    <div id="main">
+
+    </div>
+    <button id="ajax-button">Click</button>
+
+    <script>
+        function replace_text(){
+            var target = document.getElementById('main');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET','content.php',true);
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 2){
+                 
+                    target.innerHTML = 'Loading....';
+                }
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var json = JSON.parse(xhr.responseText);
+                  target.innerHTML = json.regular;
+                }
+            }
+            xhr.send();
+
+        }
+        var button = document.getElementById("ajax-button");
+        button.addEventListener('click',replace_text);
+    </script>
+</body>
+</html>
