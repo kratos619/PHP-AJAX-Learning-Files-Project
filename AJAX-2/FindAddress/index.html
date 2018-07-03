@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Find Adrress</title>
+
+</head>
+<body>
+    Zip Code: <input type="text" name="zipcode" id="zipcode">
+<button id="ajax-button" type="button" >Submit</button>
+
+<div id="location">
+
+</div>
+<script>
+    var api =  'http://maps.googleapis.com/maps/api/geocode/json';
+
+    function find_location(){
+        var zipcode = document.getElementById('zipcode');
+        var url = api + '?address=' + zipcode.value;
+
+        var xhr  = new XMLHttpRequest();
+        xhr.open('GET',url,true);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState < 4){
+                showLoading();
+            }
+            if(xhr.readyState == 4 && xhr.status == 200){
+                outputLocation(xhr.responseText);
+            }
+        };
+
+        xhr.send();
+    }
+    function showLoading(){
+        var target = document.getElementById('location');
+        target.innerHTML = "Loading...";
+    }
+    function outputLocation(data){
+        var target = document.getElementById('location');
+        var json = JSON.parse(data);
+        var address = json.results[0].formatted_address;
+        target.innerHTML = address;
+
+    }
+
+    var button = document.getElementById('ajax-button');
+    button.addEventListener('click',find_location);
+</script>
+</body>
+</html>
