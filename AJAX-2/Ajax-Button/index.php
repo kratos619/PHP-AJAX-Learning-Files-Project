@@ -32,6 +32,7 @@
     </style>
   </head>
   <body>
+  
     <div id="blog-posts">
       <div id="blog-post-101" class="blog-post">
         <h3>Blog Post 101</h3>
