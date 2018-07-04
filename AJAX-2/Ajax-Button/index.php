@@ -52,18 +52,21 @@
         <h3>Blog Post 101</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque nunc malesuada mauris fermentum commodo. Integer non pellentesque augue, vitae pellentesque tortor. Ut gravida ullamcorper dolor, ac fringilla mauris interdum id. Nulla porta egestas nisi, et eleifend nisl tincidunt suscipit. Suspendisse massa ex, fringilla quis orci a, rhoncus porta nulla. Aliquam diam velit, bibendum sit amet suscipit eget, mollis in purus. Sed mattis ultricies scelerisque. Integer ligula magna, feugiat non purus eget, pharetra volutpat orci. Duis gravida neque erat, nec venenatis dui dictum vel. Maecenas molestie tortor nec justo porttitor, in sagittis libero consequat. Maecenas finibus porttitor nisl vitae tincidunt.</p>
         <button class="favorite-button">Favorite</button>
+        <button class="un-favorite-button">Un-Favorite</button>
       </div>
       <div id="blog-post-102" class="blog-post <?php if(is_favorite(102)){ echo 'favorite';} ?>">
       <span class="favorite-heart">&hearts;</span>
         <h3>Blog Post 102</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque nunc malesuada mauris fermentum commodo. Integer non pellentesque augue, vitae pellentesque tortor. Ut gravida ullamcorper dolor, ac fringilla mauris interdum id. Nulla porta egestas nisi, et eleifend nisl tincidunt suscipit. Suspendisse massa ex, fringilla quis orci a, rhoncus porta nulla. Aliquam diam velit, bibendum sit amet suscipit eget, mollis in purus. Sed mattis ultricies scelerisque. Integer ligula magna, feugiat non purus eget, pharetra volutpat orci. Duis gravida neque erat, nec venenatis dui dictum vel. Maecenas molestie tortor nec justo porttitor, in sagittis libero consequat. Maecenas finibus porttitor nisl vitae tincidunt.</p>
         <button class="favorite-button">Favorite</button>
+        <button class="un-favorite-button">Un-Favorite</button>
       </div>
       <div id="blog-post-103" class="blog-post <?php if(is_favorite(103)){ echo 'favorite';} ?>">
       <span class="favorite-heart">&hearts;</span>
         <h3>Blog Post 103</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque nunc malesuada mauris fermentum commodo. Integer non pellentesque augue, vitae pellentesque tortor. Ut gravida ullamcorper dolor, ac fringilla mauris interdum id. Nulla porta egestas nisi, et eleifend nisl tincidunt suscipit. Suspendisse massa ex, fringilla quis orci a, rhoncus porta nulla. Aliquam diam velit, bibendum sit amet suscipit eget, mollis in purus. Sed mattis ultricies scelerisque. Integer ligula magna, feugiat non purus eget, pharetra volutpat orci. Duis gravida neque erat, nec venenatis dui dictum vel. Maecenas molestie tortor nec justo porttitor, in sagittis libero consequat. Maecenas finibus porttitor nisl vitae tincidunt.</p>
         <button class="favorite-button">Favorite</button>
+        <button class="un-favorite-button">Un-Favorite</button>
       </div>
     </div>
 
@@ -85,13 +88,35 @@
           }
         };
         xhr.send("id=" + parent.id);
+      } 
+
+      function un_favorite() {
+        var parent = this.parentElement;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'un-favorite.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onreadystatechange = function () {
+          if(xhr.readyState == 4 && xhr.status == 200) {
+            var result = xhr.responseText;
+            console.log('Result: ' + result);
+            if(result == 'true'){
+              parent.classList.remove("favorite");
+            }
+          }
+        };
+        xhr.send("id=" + parent.id);
       }
 
       var buttons = document.getElementsByClassName("favorite-button");
       for(i=0; i < buttons.length; i++) {
         buttons.item(i).addEventListener("click", favorite);
       }
-
+var buttons = document.getElementsByClassName("un-favorite-button");
+      for(i=0; i < buttons.length; i++) {
+        buttons.item(i).addEventListener("click", un_favorite);
+      }
     </script>
 
   </body>
