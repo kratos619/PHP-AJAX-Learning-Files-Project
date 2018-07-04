@@ -1,20 +1,24 @@
 <?php
-session_start();
+  // You can simulate a slow server with sleep
+  // sleep(2);
 
-if (!isset($_SESSION['favorites'])) {
-  $_SESSION['favorites'] = [];
-}
+  session_start();
 
-function is_ajax_request()
-{
-  return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-  $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-}
+  if(!isset($_SESSION['favorites'])) { $_SESSION['favorites'] = []; }
 
-if(!is_ajax_request()){ exit; }
+  function is_ajax_request() {
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+  }
 
-$raw_id = isset($_POST['id']) ? $_POST['id'] : '';
+  if(!is_ajax_request()) { exit; }
+
+  // extract $id
+  $raw_id = isset($_POST['id']) ? $_POST['id'] : '';
 
   echo $raw_id;
+  
+  // store in $_SESSION['favorites']
+  // return true/false
 
 ?>
