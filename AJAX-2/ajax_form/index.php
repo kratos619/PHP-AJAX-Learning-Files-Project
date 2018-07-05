@@ -42,7 +42,8 @@
 
       var result_div = document.getElementById("result");
       var volume = document.getElementById("volume");
-
+      var button = document.getElementById("ajax-submit");
+      var orig_button = button.value;
        function showSpinner() {
         var spinner = document.getElementById("spinner");
         spinner.style.display = 'block';
@@ -51,6 +52,18 @@
         var spinner = document.getElementById("spinner");
         spinner.style.display = 'none';
       }
+
+      function disablesubmitbutton(){
+        
+         button.disabled = true;
+         button.value = "Loading...."
+      }
+      function enablesubmitbutton(){
+       
+         button.disabled = false;
+         button.value = "Click To Submit"
+      } 
+
       function displayErrors(errors) {
         var inputs = document.getElementsByTagName('input');
         for(i=0; i < inputs.length; i++) {
@@ -93,6 +106,7 @@
         clearResult();
         clearErrors();
         showSpinner();
+        disablesubmitbutton();
 
         var form = document.getElementById("measurement-form");
         var action = form.getAttribute("action");
@@ -114,6 +128,7 @@
             console.log('Result: ' + result);
             var json = JSON.parse(result);
             hideshowSpinner();
+            enablesubmitbutton();
             if(json.hasOwnProperty('errors') && json.errors.length > 0) {
               displayErrors(json.errors);
             } else {
@@ -124,7 +139,7 @@
         xhr.send(form_data);
       }
 
-      var button = document.getElementById("ajax-submit");
+    
       button.addEventListener("click", calculateMeasurements);
 
     </script>
