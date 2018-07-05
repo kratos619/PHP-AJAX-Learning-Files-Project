@@ -10,6 +10,9 @@
       .error{
         border : 1px solid red;
       }
+      #spinner {
+        display:none;
+      }
     </style>
   </head>
   <body>
@@ -27,6 +30,9 @@
         <input id="ajax-submit" type="button" value="Ajax Submit" />
       </form>
     </div>
+    <div id="spinner">
+      <img src="spinner.gif" width="50" height="50" />
+    </div>
 
     <div id="result">
       <p>The total volume is: <span id="volume"></span></p>
@@ -37,6 +43,14 @@
       var result_div = document.getElementById("result");
       var volume = document.getElementById("volume");
 
+       function showSpinner() {
+        var spinner = document.getElementById("spinner");
+        spinner.style.display = 'block';
+      }
+      function hideshowSpinner() {
+        var spinner = document.getElementById("spinner");
+        spinner.style.display = 'none';
+      }
       function displayErrors(errors) {
         var inputs = document.getElementsByTagName('input');
         for(i=0; i < inputs.length; i++) {
@@ -78,6 +92,7 @@
       function calculateMeasurements() {
         clearResult();
         clearErrors();
+        showSpinner();
 
         var form = document.getElementById("measurement-form");
         var action = form.getAttribute("action");
@@ -98,6 +113,7 @@
             var result = xhr.responseText;
             console.log('Result: ' + result);
             var json = JSON.parse(result);
+            hideshowSpinner();
             if(json.hasOwnProperty('errors') && json.errors.length > 0) {
               displayErrors(json.errors);
             } else {
